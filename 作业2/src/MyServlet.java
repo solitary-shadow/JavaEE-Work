@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet("/StudentLogin")
+@WebServlet("/StudentRegister")
 public class MyServlet extends HttpServlet {
 
 //    @Override
@@ -26,8 +26,7 @@ public class MyServlet extends HttpServlet {
         PrintWriter out =response.getWriter();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        System.out.println(username+"111111111111");
-        System.out.println(password+"22222222222");
+
 //        U user = new U();
 //        user.setUsername(username);
 //        user.setPassword(password);
@@ -35,14 +34,17 @@ public class MyServlet extends HttpServlet {
 //        UserDao u =new UserDao();
         HttpSession session =request.getSession();
 
+        UserT user = new UserT();
+        user.setPassword(password);
+        user.setUserName(username);
+
         session.setAttribute("UserName",username);
         session.setAttribute("UserPassword",password);
         session.setAttribute("message","你注册成功了");
 
+        UserDao userDao = new UserDao();
         try {
-            System.out.println(username+"111111111111");
-            System.out.println(password+"22222222222");
-            if(DbUtil.insertUser(username,password)){
+            if(userDao.insertUser(user.getUserName(),user.getPassword())){
                 System.out.println("注册成功");
                 request.getRequestDispatcher("index.jsp").forward(request,response);
             }

@@ -12,7 +12,7 @@
   </head>
   <body>
 <%--    <form action="MyServlet" method="post">--%>
-    <form id="login">
+    <form id="register">
       <label for="username">用户名</label>
       <input type="text" name="username" id="username">
       <label for="password">密码</label>
@@ -23,21 +23,25 @@
     </form>
   <input id="submit" type="submit" value="提交">
   </body>
+
   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script>
   $("#submit").on('click', function(){
-    console.log(11111);
+    console.log("Success");
     $.ajax({
       type: 'POST',
       url: 'index',
-      data: $("#login").serialize(),
+      data: $("#register").serialize(),
       success: function(){
-        console.log($("#login").serialize());
+        console.log($("#register").serialize());
+        alert("注册成功!")
       },
       error: function(){
         console.log(222222)
+          alert("注册失败!")
       }
     })
   })
 </script>
+
 </html>
